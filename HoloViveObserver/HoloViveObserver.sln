@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{FD432E37-A23F-0657-E9D1-A0D5B820776A}") = "HoloViveObserver", "Assembly-CSharp.csproj", "{589F34C1-7858-B7B9-406D-767F5F167F3C}"
+EndProject
+Project("{FD432E37-A23F-0657-E9D1-A0D5B820776A}") = "HoloViveObserver", "Assembly-CSharp-Editor.csproj", "{7173C11E-0D7D-D10F-2167-0C6204282627}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{589F34C1-7858-B7B9-406D-767F5F167F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589F34C1-7858-B7B9-406D-767F5F167F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589F34C1-7858-B7B9-406D-767F5F167F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589F34C1-7858-B7B9-406D-767F5F167F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7173C11E-0D7D-D10F-2167-0C6204282627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7173C11E-0D7D-D10F-2167-0C6204282627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7173C11E-0D7D-D10F-2167-0C6204282627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7173C11E-0D7D-D10F-2167-0C6204282627}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
