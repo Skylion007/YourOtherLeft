@@ -105,7 +105,7 @@ public class AlignmentClient : NetworkBehaviour
 
         Debug.Log("Creating floating controller.");
         controllerTarget = Instantiate(controllerTargetPrefab);
-        controllerTarget.transform.position = Vector3.zero;
+		controllerTarget.transform.position = playerController.transform.position;
         controllerTarget.transform.rotation = Quaternion.identity;
 
         CmdTargetInfo(controllerTarget.transform.position, controllerTarget.transform.rotation.eulerAngles.y);

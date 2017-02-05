@@ -71,7 +71,8 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdApplyRelativeAlignment(Vector3 translation, float rotation)
     {
-        alignmentTranslation = translation;
+		// CHANGED
+        alignmentTranslation += translation;
         alignmentRotation = rotation;
     }
 

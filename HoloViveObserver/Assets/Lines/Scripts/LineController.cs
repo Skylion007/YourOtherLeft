@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class BlockController : NetworkBehaviour
+public class LineController : NetworkBehaviour
 {
     private enum State
     {
@@ -15,7 +15,8 @@ public class BlockController : NetworkBehaviour
     [SyncVar]
     private State state = State.Static;
 
-    private MeshRenderer meshRenderer;
+    //private MeshRenderer meshRenderer;
+	private LineRenderer lineRenderer;
 
     private Vector3 oldPosition;
     private Vector3 oldScale;
@@ -23,13 +24,9 @@ public class BlockController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+		lineRenderer = GetComponent<LineRenderer>();
 
-        if (isClient)
-        {
-            meshRenderer = GetComponent<MeshRenderer>();
-            staticMaterial = meshRenderer.material;
-            UpdateMaterial();
-        }
+        if (isClient){}
 
         if (isServer)
         {
@@ -53,26 +50,29 @@ public class BlockController : NetworkBehaviour
     [Server]
     void SendCurrentPosition()
     {
-        var position = transform.localPosition;
+		Vector3[] curPoints = new Vector3[lineRenderer.numPositions];
+		lineRenderer.GetPositions (curPoints);
+
+
+		/*var position = transform.localPosition;
         var scale = transform.localScale;
 
         if (position == oldPosition && scale == oldScale) return;
 
         oldPosition = position;
-        oldScale = scale;
+        oldScale = scale;*/
         
-        RpcUpdatePosition(position, scale);
+		RpcUpdatePoints(curPoints);
     }
 
     [ClientRpc]
-    void RpcUpdatePosition(Vector3 position, Vector3 scale)
+    void RpcUpdatePoints(Vector3[] newPoints)
     {
-        this.transform.localPosition = position;
-        this.transform.localScale = scale;
+		lineRenderer.SetPositions (newPoints);
     }
 
     [ServerCallback]
-    public void StartPlacing()
+    public void StartDrawing()
     {
         if (state != State.Static)
         {
@@ -84,7 +84,7 @@ public class BlockController : NetworkBehaviour
     }
 
     [ServerCallback]
-    public void FinishPlacing()
+    public void FinishDrawing()
     {
         if (state != State.Placing)
         {
@@ -103,7 +103,7 @@ public class BlockController : NetworkBehaviour
 
     [Client]
     private void UpdateMaterial() {
-        if (!meshRenderer)
+        /*if (!meshRenderer)
         {
             return;
         }
@@ -116,6 +116,6 @@ public class BlockController : NetworkBehaviour
             case State.Placing:
                 meshRenderer.material = placingMaterial;
                 break;
-        }
+        }*/
     }
 }
