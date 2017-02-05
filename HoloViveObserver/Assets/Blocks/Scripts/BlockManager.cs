@@ -85,15 +85,15 @@ public class BlockManager : NetworkBehaviour
     private void UpdateCubePosition()
     {
         Vector3 left = leftController.transform.position;
-        Vector3 right = rightController.transform.position;
-        CmdUpdateCubePosition((left + right) / 2, right - left);
+        //Vector3 right = rightController.transform.position;
+        CmdUpdateCubePosition(left);
     }
 
     [Command]
-    private void CmdUpdateCubePosition(Vector3 position, Vector3 scale)
+    private void CmdUpdateCubePosition(Vector3 position)
     {
         if (!currentCube) return;
         currentCube.transform.position = position;
-        currentCube.transform.localScale = scale;
+		currentCube.transform.localScale = Vector3(1,1,1);
     }
 }
