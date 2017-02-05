@@ -64,8 +64,8 @@ public class LineManager : NetworkBehaviour
 			Debug.LogError ("current line is null");
 		}
 		lineController = currentLine.GetComponent<LineController> ();
+		NetworkServer.Spawn(currentLine);
 		lineController.StartDrawing();
-        NetworkServer.Spawn(currentLine);
         RpcSetLineParent(currentLine);
 		UpdateLinePoints();
 
