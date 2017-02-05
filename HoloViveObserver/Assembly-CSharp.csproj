@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Blocks\Scripts\BlockController.cs" />
+     <Compile Include="Assets\Blocks\Scripts\BlockManager.cs" />
      <Compile Include="Assets\HoloToolkit\CrossPlatform\Scripts\MetroHandleRef.cs" />
      <Compile Include="Assets\HoloToolkit\CrossPlatform\Scripts\Reflection\ReflectionExtensions.cs" />
      <Compile Include="Assets\HoloToolkit\CrossPlatform\Scripts\Reflection\TypeUtils.cs" />
@@ -214,8 +216,6 @@
      <Compile Include="Assets\HoloToolkit\Utilities\Tests\Scripts\PlaneTargetGroup.cs" />
      <Compile Include="Assets\HoloToolkit\Utilities\Tests\Scripts\PlaneTargetGroupPicker.cs" />
      <Compile Include="Assets\HoloToolkit\Utilities\Tests\TextToSpeechManagerTest.cs" />
-     <Compile Include="Assets\Lines\Scripts\LineController.cs" />
-     <Compile Include="Assets\Lines\Scripts\LineManager.cs" />
      <Compile Include="Assets\Players\PlayerController.cs" />
      <Compile Include="Assets\Scripts\AlignmentBehavior.cs" />
      <Compile Include="Assets\Scripts\AlignmentClient.cs" />
