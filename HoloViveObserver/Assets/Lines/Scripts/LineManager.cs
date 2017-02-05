@@ -61,6 +61,7 @@ public class LineManager : NetworkBehaviour
 	[Command]
 	private void CmdStartPlacingCube()
 	{
+		Debug.Log ("Instantating cube");
 		currentCube = Instantiate(cubeAsset, cubeContainer.transform);
 		currentCube.GetComponent<LineController>().StartPlacing();
 		UpdateCubePosition();
@@ -68,6 +69,7 @@ public class LineManager : NetworkBehaviour
 		RpcSetBlockParent(currentCube);
 
 		placingCube = true;
+		Debug.Log ("Instantated cube");
 	}
 
 	[ClientRpc]
@@ -88,19 +90,23 @@ public class LineManager : NetworkBehaviour
 	[ClientCallback]
 	private void UpdateCubePosition()
 	{
+		Debug.Log("Updating cube position");
 		Vector3 left = leftController.transform.position;
 		//Vector3 right = rightController.transform.position;
 		CmdUpdateCubePosition(left);
+		Debug.Log("Updated cube position");
 	}
 
 	[Command]
 	private void CmdUpdateCubePosition(Vector3 position)
 	{
+		Debug.Log("CMDUpdating cube position");
 		if (!currentCube) return;
 
 		// TODO: make efficient
 		LineRenderer lineRenderer = currentCube.GetComponent<LineRenderer>();
 		lineRenderer.numPositions++;
 		lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
+		Debug.Log("CMDUpdated cube position");
 	}
 }

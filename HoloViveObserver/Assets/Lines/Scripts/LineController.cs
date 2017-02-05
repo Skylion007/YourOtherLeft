@@ -52,22 +52,25 @@ public class LineController : NetworkBehaviour
 	{
 		/*var position = transform.localPosition;
 		var scale = transform.localScale;*/
-
+		Debug.Log ("Sending current position");
 		LineRenderer lineRenderer = this.GetComponent<LineRenderer>();
 		Vector3 position = lineRenderer.GetPosition (lineRenderer.numPositions - 1);
 
 		RpcUpdatePosition(position);
+		Debug.Log ("Sent current position");
 	}
 
 	[ClientRpc]
 	void RpcUpdatePosition(Vector3 position)
 	{
+		Debug.Log ("RpcUpdatePosition");
 		/*this.transform.localPosition = position;
 		this.transform.localScale = scale;*/
 
 		LineRenderer lineRenderer = this.GetComponent<LineRenderer>();
 		lineRenderer.numPositions++;
 		lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
+		Debug.Log ("Done with RpcUpdatePosition");
 	}
 
 	[ServerCallback]
