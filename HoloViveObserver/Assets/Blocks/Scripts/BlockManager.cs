@@ -26,7 +26,7 @@ public class BlockManager : NetworkBehaviour
     {
         if (isClient && placingCube)
         {
-            UpdateCubePosition();
+			CmdPlaceCube();
         }
     }
 
@@ -44,7 +44,7 @@ public class BlockManager : NetworkBehaviour
     {
         if (AreBothTriggersPressed() && !placingCube)
         {
-            CmdStartPlacingCube();
+            CmdPlaceCube();
         }
     }
     
@@ -55,10 +55,10 @@ public class BlockManager : NetworkBehaviour
     }
 
     [Command]
-    private void CmdStartPlacingCube()
+    private void CmdPlaceCube()
     {
         currentCube = Instantiate(cubeAsset, cubeContainer.transform);
-        currentCube.GetComponent<BlockController>().StartPlacing();
+        //currentCube.GetComponent<BlockController>().StartPlacing();
         UpdateCubePosition();
         NetworkServer.Spawn(currentCube);
         RpcSetBlockParent(currentCube);
@@ -75,7 +75,7 @@ public class BlockManager : NetworkBehaviour
     [Command]
     private void CmdFinishPlacingCube()
     {
-        currentCube.GetComponent<BlockController>().FinishPlacing();
+        //currentCube.GetComponent<BlockController>().FinishPlacing();
         currentCube = null;
 
         placingCube = false;
@@ -94,6 +94,6 @@ public class BlockManager : NetworkBehaviour
     {
         if (!currentCube) return;
         currentCube.transform.position = position;
-		currentCube.transform.localScale = Vector3(1,1,1);
+		//currentCube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
     }
 }
