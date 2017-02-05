@@ -1,11 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Lines\Scripts\LineManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ControllerAlignment.cs">
     <Files>
-      <File FileName="Assets\Lines\Scripts\LineManager.cs" Line="109" Column="8" />
-      <File FileName="Assets\Lines\Scripts\LineController.cs" Line="60" Column="19" />
+      <File FileName="Assets\SteamVR\Scripts\SteamVR_Controller.cs" Line="1" Column="1" />
+      <File FileName="Assets\Players\PlayerController.cs" Line="67" Column="35" />
       <File FileName="Assets\Scripts\Utils.cs" Line="1" Column="1" />
-      <File FileName="Assets\Players\PlayerController.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\SceneChanger.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AlignmentManager.cs" Line="87" Column="10" />
+      <File FileName="Assets\Scripts\EventAnnouncer.cs" Line="37" Column="30" />
+      <File FileName="Assets\Scripts\HoloViveNetworkManager.cs" Line="92" Column="53" />
+      <File FileName="Assets\Scripts\AlignmentClient.cs" Line="42" Column="38" />
+      <File FileName="Assets\Scripts\AlignmentBehavior.cs" Line="14" Column="26" />
+      <File FileName="Assets\Scripts\ControllerManagerAlignment.cs" Line="13" Column="53" />
+      <File FileName="Assets\Scripts\ControllerAlignment.cs" Line="18" Column="64" />
+      <File FileName="Assets\SteamVR\Extras\SteamVR_TrackedController.cs" Line="34" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

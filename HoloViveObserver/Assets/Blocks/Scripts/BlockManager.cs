@@ -9,7 +9,7 @@ public class BlockManager : NetworkBehaviour
     public GameObject cubeAsset;
 
     [SyncVar]
-    private bool trigger = false;
+    private bool placingCube = false;
     private GameObject currentCube = null;
 
     public override void OnStartClient()
@@ -17,38 +17,35 @@ public class BlockManager : NetworkBehaviour
         base.OnStartClient();
 
         leftController.TriggerClicked += TriggerClicked;
-        //rightController.TriggerClicked += TriggerClicked;
+        rightController.TriggerClicked += TriggerClicked;
         leftController.TriggerUnclicked += TriggerUnclicked;
-        //rightController.TriggerUnclicked += TriggerUnclicked;
+        rightController.TriggerUnclicked += TriggerUnclicked;
     }
     
     void Update()
     {
-		if (isClient && trigger)
+        if (isClient && placingCube)
         {
-            //UpdateCubePosition();
-			CmdPlaceCube();
+            UpdateCubePosition();
         }
     }
 
     [ClientCallback]
     private void TriggerUnclicked(object sender, ClickedEventArgs e)
     {
-		trigger = false;
-        /*if (trigger)
+        if (placingCube)
         {
             CmdFinishPlacingCube();
-        }*/
+        }
     }
 
     [ClientCallback]
     private void TriggerClicked(object sender, ClickedEventArgs e)
     {
-		trigger = true;
-        /*if (AreBothTriggersPressed() && !trigger)
+        if (AreBothTriggersPressed() && !placingCube)
         {
             CmdStartPlacingCube();
-        }*/
+        }
     }
     
     [Client]
@@ -56,19 +53,17 @@ public class BlockManager : NetworkBehaviour
     {
         return leftController.triggerPressed && rightController.triggerPressed;
     }
-	 
+
     [Command]
-	private void CmdPlaceCube()
+    private void CmdStartPlacingCube()
     {
-		//Vector3 left = leftController.transform.position;
-		currentCube = Instantiate(cubeAsset);
-		currentCube.transform.position = leftController.transform.position;
-        //currentCube.GetComponent<BlockController>().StartPlacing();
-        //UpdateCubePosition();
+        currentCube = Instantiate(cubeAsset, cubeContainer.transform);
+        currentCube.GetComponent<BlockController>().StartPlacing();
+        UpdateCubePosition();
         NetworkServer.Spawn(currentCube);
         RpcSetBlockParent(currentCube);
 
-        trigger = true;
+        placingCube = true;
     }
 
     [ClientRpc]
@@ -77,13 +72,13 @@ public class BlockManager : NetworkBehaviour
         cube.transform.SetParent(cubeContainer.transform, false);
     }
 
-    /*[Command]
+    [Command]
     private void CmdFinishPlacingCube()
     {
         currentCube.GetComponent<BlockController>().FinishPlacing();
         currentCube = null;
 
-        trigger = false;
+        placingCube = false;
     }
 
     [ClientCallback]
@@ -100,5 +95,5 @@ public class BlockManager : NetworkBehaviour
         if (!currentCube) return;
         currentCube.transform.position = position;
         currentCube.transform.localScale = scale;
-    }*/
+    }
 }

@@ -16,14 +16,8 @@ public class ControllerAlignment : MonoBehaviour
         }
 
         controller.TriggerClicked += Controller_TriggerClicked;
-		controller.Gripped += Controller_Gripped;
     }
 
-
-	private void Controller_Gripped (object sender, ClickedEventArgs e)
-	{
-		alignmentManager.RequestAlignment ();
-	}
 
     private void Controller_TriggerClicked(object sender, ClickedEventArgs e)
     {

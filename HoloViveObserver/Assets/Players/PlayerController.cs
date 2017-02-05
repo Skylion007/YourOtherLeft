@@ -65,14 +65,13 @@ public class PlayerController : NetworkBehaviour
         if (alignmentClient != null && alignmentClient.isActiveAndEnabled)
         {
             alignmentClient.RequestAlignment();
-        }
+		}
     }
 
     [Command]
     private void CmdApplyRelativeAlignment(Vector3 translation, float rotation)
     {
-		// CHANGED
-        alignmentTranslation += translation;
+        alignmentTranslation = translation;
         alignmentRotation = rotation;
     }
 
