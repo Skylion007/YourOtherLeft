@@ -16,6 +16,7 @@ public class LineController : NetworkBehaviour
     private State state = State.Static;
 
     //private MeshRenderer meshRenderer;
+
 	private LineRenderer lineRenderer;
 
     private Vector3 oldPosition;
@@ -24,9 +25,10 @@ public class LineController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-		lineRenderer = GetComponent<LineRenderer>();
 
-        if (isClient){}
+        if (isClient){
+			lineRenderer = GetComponent<LineRenderer>();
+		}
 
         if (isServer)
         {
@@ -47,18 +49,18 @@ public class LineController : NetworkBehaviour
         }
     }
 
-	[ServerCallback]
+	[Server]
 	public void AddPoint(Vector3 position) {
-		lineRenderer.numPositions++;
-		lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
+		//lineRenderer.numPositions++;
+		//lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
 		RpcAddPoint (position);
 	}
 
     [ClientRpc]
     private void RpcAddPoint(Vector3 posn)
     {
-		lineRenderer.numPositions++;
-		lineRenderer.SetPosition (lineRenderer.numPositions - 1, posn);
+		this.lineRenderer.numPositions++;
+		this.lineRenderer.SetPosition (this.lineRenderer.numPositions - 1, posn);
     }
 
     [ServerCallback]
