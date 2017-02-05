@@ -91,9 +91,6 @@
      <None Include="Assets\HoloToolkit\Utilities\Shaders\WindowOcclusion.shader" />
      <None Include="Assets\HoloToolkit\Utilities\Shaders\UnlitConfigurable.cginc" />
      <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>G:/Program Data/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>G:/Program Data/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -136,9 +133,6 @@
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>G:/Program Data/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
- <Reference Include="UnityEngine.Purchasing">
- <HintPath>G:/Program Data/Unity/Editor/Data/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.VR">
  <HintPath>G:/Program Data/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
  </Reference>
@@ -148,8 +142,14 @@
  <Reference Include="UnityEditor.Graphs">
  <HintPath>G:/Program Data/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.WSA.Extensions">
+ <HintPath>G:/Program Data/Unity/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>G:/Program Data/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.Cecil">
+ <HintPath>G:/Program Data/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
