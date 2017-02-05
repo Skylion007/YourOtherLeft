@@ -94,6 +94,6 @@ public class BlockManager : NetworkBehaviour
     {
         if (!currentCube) return;
         currentCube.transform.position = position;
-		//currentCube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
+		currentCube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
     }
 }
