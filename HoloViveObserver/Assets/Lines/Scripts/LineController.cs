@@ -3,111 +3,118 @@ using UnityEngine.Networking;
 
 public class LineController : NetworkBehaviour
 {
-    private enum State
-    {
-        Static,
-        Placing,
-    }
-
-    private Material staticMaterial;
-    public Material placingMaterial;
-
-    [SyncVar]
-    private State state = State.Static;
-
-    //private MeshRenderer meshRenderer;
-
-	private LineRenderer lineRenderer;
-
-    private Vector3 oldPosition;
-    private Vector3 oldScale;
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-
-        if (isClient){
-			lineRenderer = GetComponent<LineRenderer>();
-		}
-
-        if (isServer)
-        {
-            //SendCurrentPosition();
-        }
-    }
-
-    private void Update()
-    {
-        if (isServer)
-        {
-            //SendCurrentPosition();
-        }
-
-        if (isClient)
-        {
-            UpdateMaterial();
-        }
-    }
-
-	[Server]
-	public void AddPoint(Vector3 position) {
-		//lineRenderer.numPositions++;
-		//lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
-		RpcAddPoint (position);
+	private enum State
+	{
+		Static,
+		Placing,
 	}
 
-    [ClientRpc]
-    private void RpcAddPoint(Vector3 posn)
-    {
-		this.lineRenderer.numPositions++;
-		this.lineRenderer.SetPosition (this.lineRenderer.numPositions - 1, posn);
-    }
+	private Material staticMaterial;
+	public Material placingMaterial;
 
-    [ServerCallback]
-    public void StartDrawing()
-    {
-        if (state != State.Static)
-        {
-            return;
-        }
+	[SyncVar]
+	private State state = State.Static;
 
-        state = State.Placing;
-        RpcUpdateMaterial();
-    }
+	//private MeshRenderer meshRenderer;
 
-    [ServerCallback]
-    public void FinishDrawing()
-    {
-        if (state != State.Placing)
-        {
-            return;
-        }
+	public override void OnStartClient()
+	{
+		base.OnStartClient();
 
-        state = State.Static;
-        RpcUpdateMaterial();
-    }
+		if (isClient)
+		{
+			/*meshRenderer = GetComponent<MeshRenderer>();
+			staticMaterial = meshRenderer.material;
+			UpdateMaterial();*/
+		}
 
-    [ClientRpc]
-    private void RpcUpdateMaterial()
-    {
-        UpdateMaterial();
-    }
+		if (isServer)
+		{
+			SendCurrentPosition();
+		}
+	}
 
-    [Client]
-    private void UpdateMaterial() {
-        /*if (!meshRenderer)
-        {
-            return;
-        }
+	private void Update()
+	{
+		if (isServer)
+		{
+			SendCurrentPosition();
+		}
 
-        switch (state)
-        {
-            case State.Static:
-                meshRenderer.material = staticMaterial;
-                break;
-            case State.Placing:
-                meshRenderer.material = placingMaterial;
-                break;
-        }*/
-    }
+		if (isClient)
+		{
+			//UpdateMaterial();
+		}
+	}
+
+	[Server]
+	void SendCurrentPosition()
+	{
+		/*var position = transform.localPosition;
+		var scale = transform.localScale;*/
+
+		LineRenderer lineRenderer = this.GetComponent<LineRenderer>();
+		Vector3 position = lineRenderer.GetPosition (lineRenderer.numPositions - 1);
+
+		RpcUpdatePosition(position);
+	}
+
+	[ClientRpc]
+	void RpcUpdatePosition(Vector3 position)
+	{
+		/*this.transform.localPosition = position;
+		this.transform.localScale = scale;*/
+
+		LineRenderer lineRenderer = this.GetComponent<LineRenderer>();
+		lineRenderer.numPositions++;
+		lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
+	}
+
+	[ServerCallback]
+	public void StartPlacing()
+	{
+		if (state != State.Static)
+		{
+			return;
+		}
+
+		state = State.Placing;
+		RpcUpdateMaterial();
+	}
+
+	[ServerCallback]
+	public void FinishPlacing()
+	{
+		if (state != State.Placing)
+		{
+			return;
+		}
+
+		state = State.Static;
+		RpcUpdateMaterial();
+	}
+
+	[ClientRpc]
+	private void RpcUpdateMaterial()
+	{
+		//UpdateMaterial();
+	}
+
+	[Client]
+	private void UpdateMaterial() {
+		/*if (!meshRenderer)
+		{
+			return;
+		}
+
+		switch (state)
+		{
+		case State.Static:
+			meshRenderer.material = staticMaterial;
+			break;
+		case State.Placing:
+			meshRenderer.material = placingMaterial;
+			break;
+		}*/
+	}
 }

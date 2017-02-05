@@ -3,108 +3,104 @@ using UnityEngine.Networking;
 
 public class LineManager : NetworkBehaviour
 {
-    public SteamVR_TrackedController leftController;
-    public SteamVR_TrackedController rightController;
-    public GameObject lineContainer;
-    public GameObject lineAsset;
+	public SteamVR_TrackedController leftController;
+	public SteamVR_TrackedController rightController;
+	public GameObject cubeContainer;
+	public GameObject cubeAsset;
 
-	private LineController lineController;
-
-	private Vector3 lastLeftPosn = Vector3.zero;
+	/*private Vector3 lastLeftPosn = Vector3.zero;
 	public float maxMovement = 10.0f;
-	public float minMovement = 0.5f;
+	public float minMovement = 0.5f;*/
 
-    [SyncVar]
-    private bool drawingLine = false;
-    private GameObject currentLine = null;
+	[SyncVar]
+	private bool placingCube = false;
+	private GameObject currentCube = null;
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
+	public override void OnStartClient()
+	{
+		base.OnStartClient();
 
-        leftController.TriggerClicked += TriggerClicked;
-        //rightController.TriggerClicked += TriggerClicked;
-        leftController.TriggerUnclicked += TriggerUnclicked;
-        //rightController.TriggerUnclicked += TriggerUnclicked;
-    }
-    
-    void Update()
-    {
-		if (isClient && drawingLine)
-        {
-            UpdateLinePoints();
-        }
-    }
+		leftController.TriggerClicked += TriggerClicked;
+		//rightController.TriggerClicked += TriggerClicked;
+		leftController.TriggerUnclicked += TriggerUnclicked;
+		//rightController.TriggerUnclicked += TriggerUnclicked;
+	}
 
-    [ClientCallback]
-    private void TriggerUnclicked(object sender, ClickedEventArgs e)
-    {
-		if (drawingLine)
-        {
-			lastLeftPosn = Vector3.zero;
-            CmdFinishDrawingLine();
-        }
-    }
-
-    [ClientCallback]
-    private void TriggerClicked(object sender, ClickedEventArgs e)
-    {
-		if (!drawingLine)
-        {
-            CmdStartDrawingLine();
-        }
-    }
-
-    [Command]
-    private void CmdStartDrawingLine()
-    {
-        currentLine = Instantiate(lineAsset, lineContainer.transform);
-
-		if (currentLine == null) {
-			Debug.LogError ("current line is null");
+	void Update()
+	{
+		if (isClient && placingCube)
+		{
+			UpdateCubePosition();
 		}
-		lineController = currentLine.GetComponent<LineController> ();
-		NetworkServer.Spawn(currentLine);
-		lineController.StartDrawing();
-        RpcSetLineParent(currentLine);
-		UpdateLinePoints();
+	}
 
-        drawingLine = true;
-    }
-
-    [ClientRpc]
-    private void RpcSetLineParent(GameObject line)
-    {
-		line.transform.SetParent(lineContainer.transform, false);
-    }
-
-    [Command]
-    private void CmdFinishDrawingLine()
-    {
-        currentLine.GetComponent<LineController>().FinishDrawing();
-        currentLine = null;
-
-		drawingLine = false;
-    }
-
-    [ClientCallback]
-	private void UpdateLinePoints()
-    {
-        Vector3 left = leftController.transform.position;
-        //Vector3 right = rightController.transform.position;
-        CmdUpdateLinePoints(left);
-    }
-
-    [Command]
-    private void CmdUpdateLinePoints(Vector3 position)
-    { 
-		if (!currentLine) return;
-
-
-		float change = Vector3.Distance (lastLeftPosn, position);
-		if (lastLeftPosn == Vector3.zero || (minMovement < change && change < maxMovement)) {
-			lineController.AddPoint (position);
-
+	[ClientCallback]
+	private void TriggerUnclicked(object sender, ClickedEventArgs e)
+	{
+		if (placingCube)
+		{
+			CmdFinishPlacingCube();
 		}
-    }
+	}
+
+	[ClientCallback]
+	private void TriggerClicked(object sender, ClickedEventArgs e)
+	{
+		if (!placingCube)
+		{
+			CmdStartPlacingCube();
+		}
+	}
+
+	/*[Client]
+	private bool AreBothTriggersPressed()
+	{
+		return leftController.triggerPressed && rightController.triggerPressed;
+	}*/
+
+	[Command]
+	private void CmdStartPlacingCube()
+	{
+		currentCube = Instantiate(cubeAsset, cubeContainer.transform);
+		currentCube.GetComponent<LineController>().StartPlacing();
+		UpdateCubePosition();
+		NetworkServer.Spawn(currentCube);
+		RpcSetBlockParent(currentCube);
+
+		placingCube = true;
+	}
+
+	[ClientRpc]
+	private void RpcSetBlockParent(GameObject cube)
+	{
+		cube.transform.SetParent(cubeContainer.transform, false);
+	}
+
+	[Command]
+	private void CmdFinishPlacingCube()
+	{
+		currentCube.GetComponent<LineController>().FinishPlacing();
+		currentCube = null;
+
+		placingCube = false;
+	}
+
+	[ClientCallback]
+	private void UpdateCubePosition()
+	{
+		Vector3 left = leftController.transform.position;
+		//Vector3 right = rightController.transform.position;
+		CmdUpdateCubePosition(left);
+	}
+
+	[Command]
+	private void CmdUpdateCubePosition(Vector3 position)
+	{
+		if (!currentCube) return;
+
+		// TODO: make efficient
+		LineRenderer lineRenderer = currentCube.GetComponent<LineRenderer>();
+		lineRenderer.numPositions++;
+		lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
+	}
 }
