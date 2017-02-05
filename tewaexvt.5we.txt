@@ -1,0 +1,32 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   HoloViveObserver/Assembly-CSharp.csproj
+#	deleted:    HoloViveObserver/Assets/Blocks/Scripts/BlockManager.cs
+#	renamed:    HoloViveObserver/Assets/Blocks.meta -> HoloViveObserver/Assets/Lines.meta
+#	renamed:    HoloViveObserver/Assets/Blocks/Materials.meta -> HoloViveObserver/Assets/Lines/Materials.meta
+#	renamed:    HoloViveObserver/Assets/Blocks/Materials/Block Material.mat -> HoloViveObserver/Assets/Lines/Materials/Block Material.mat
+#	renamed:    HoloViveObserver/Assets/Blocks/Materials/Block Material.mat.meta -> HoloViveObserver/Assets/Lines/Materials/Block Material.mat.meta
+#	renamed:    HoloViveObserver/Assets/Blocks/Materials/Block Placing Material.mat -> HoloViveObserver/Assets/Lines/Materials/Block Placing Material.mat
+#	renamed:    HoloViveObserver/Assets/Blocks/Materials/Block Placing Material.mat.meta -> HoloViveObserver/Assets/Lines/Materials/Block Placing Material.mat.meta
+#	new file:   HoloViveObserver/Assets/Lines/Materials/LineMaterial.mat
+#	new file:   HoloViveObserver/Assets/Lines/Materials/LineMaterial.mat.meta
+#	renamed:    HoloViveObserver/Assets/Blocks/Prefabs.meta -> HoloViveObserver/Assets/Lines/Prefabs.meta
+#	renamed:    HoloViveObserver/Assets/Blocks/Prefabs/Building Block.prefab -> HoloViveObserver/Assets/Lines/Prefabs/Building Block.prefab
+#	renamed:    HoloViveObserver/Assets/Blocks/Prefabs/Building Block.prefab.meta -> HoloViveObserver/Assets/Lines/Prefabs/Building Block.prefab.meta
+#	new file:   HoloViveObserver/Assets/Lines/Prefabs/Line.prefab
+#	new file:   HoloViveObserver/Assets/Lines/Prefabs/Line.prefab.meta
+#	renamed:    HoloViveObserver/Assets/Blocks/Scripts.meta -> HoloViveObserver/Assets/Lines/Scripts.meta
+#	renamed:    HoloViveObserver/Assets/Blocks/Scripts/BlockController.cs -> HoloViveObserver/Assets/Lines/Scripts/LineController.cs
+#	renamed:    HoloViveObserver/Assets/Blocks/Scripts/BlockController.cs.meta -> HoloViveObserver/Assets/Lines/Scripts/LineController.cs.meta
+#	new file:   HoloViveObserver/Assets/Lines/Scripts/LineManager.cs
+#	renamed:    HoloViveObserver/Assets/Blocks/Scripts/BlockManager.cs.meta -> HoloViveObserver/Assets/Lines/Scripts/LineManager.cs.meta
+#	modified:   HoloViveObserver/Assets/Players/PlayerController.cs
+#	modified:   HoloViveObserver/Assets/Scenes/Main.unity
+#	modified:   HoloViveObserver/Assets/Scripts/AlignmentClient.cs
+#
+

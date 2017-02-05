@@ -30,7 +30,7 @@ public class LineController : NetworkBehaviour
 
         if (isServer)
         {
-            SendCurrentPosition();
+            //SendCurrentPosition();
         }
     }
 
@@ -38,7 +38,7 @@ public class LineController : NetworkBehaviour
     {
         if (isServer)
         {
-            SendCurrentPosition();
+            //SendCurrentPosition();
         }
 
         if (isClient)
@@ -47,28 +47,18 @@ public class LineController : NetworkBehaviour
         }
     }
 
-    [Server]
-    void SendCurrentPosition()
-    {
-		Vector3[] curPoints = new Vector3[lineRenderer.numPositions];
-		lineRenderer.GetPositions (curPoints);
-
-
-		/*var position = transform.localPosition;
-        var scale = transform.localScale;
-
-        if (position == oldPosition && scale == oldScale) return;
-
-        oldPosition = position;
-        oldScale = scale;*/
-        
-		RpcUpdatePoints(curPoints);
-    }
+	[ServerCallback]
+	public void AddPoint(Vector3 position) {
+		lineRenderer.numPositions++;
+		lineRenderer.SetPosition (lineRenderer.numPositions - 1, position);
+		RpcAddPoint (position);
+	}
 
     [ClientRpc]
-    void RpcUpdatePoints(Vector3[] newPoints)
+    private void RpcAddPoint(Vector3 posn)
     {
-		lineRenderer.SetPositions (newPoints);
+		lineRenderer.numPositions++;
+		lineRenderer.SetPosition (lineRenderer.numPositions - 1, posn);
     }
 
     [ServerCallback]

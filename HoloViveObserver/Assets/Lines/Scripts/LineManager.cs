@@ -8,7 +8,7 @@ public class LineManager : NetworkBehaviour
     public GameObject lineContainer;
     public GameObject lineAsset;
 
-	private LineRenderer line;
+	private LineController lineController;
 
 	private Vector3 lastLeftPosn = Vector3.zero;
 	public float maxMovement = 10.0f;
@@ -21,8 +21,6 @@ public class LineManager : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-
-
 
         leftController.TriggerClicked += TriggerClicked;
         //rightController.TriggerClicked += TriggerClicked;
@@ -61,15 +59,15 @@ public class LineManager : NetworkBehaviour
     private void CmdStartDrawingLine()
     {
         currentLine = Instantiate(lineAsset, lineContainer.transform);
-		line = currentLine.GetComponent<LineRenderer> ();
+
 		if (currentLine == null) {
 			Debug.LogError ("current line is null");
 		}
-		LineController a = currentLine.GetComponent<LineController> ();
-		a.StartDrawing();
-		UpdateLinePoints();
+		lineController = currentLine.GetComponent<LineController> ();
+		lineController.StartDrawing();
         NetworkServer.Spawn(currentLine);
         RpcSetLineParent(currentLine);
+		UpdateLinePoints();
 
         drawingLine = true;
     }
@@ -102,10 +100,11 @@ public class LineManager : NetworkBehaviour
     { 
 		if (!currentLine) return;
 
+
 		float change = Vector3.Distance (lastLeftPosn, position);
 		if (lastLeftPosn == Vector3.zero || (minMovement < change && change < maxMovement)) {
-			line.numPositions++;
-			line.SetPosition (line.numPositions - 1, position);
+			lineController.AddPoint (position);
+
 		}
     }
 }
